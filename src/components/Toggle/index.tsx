@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Feather } from '@expo/vector-icons';
 import { View, Text, Pressable } from 'react-native';
 
-import { MotiView, useAnimationState } from "moti";
+import { MotiView, useAnimationState, AnimatePresence } from "moti";
 
 import { styles } from './styles';
 import { theme } from '../../styles/theme';
@@ -37,6 +37,7 @@ export function Toggle() {
       >
         {
           toggleIsOpen ?
+          <AnimatePresence>
             <MotiView 
               from={{
                 rotate: '0deg',
@@ -56,12 +57,28 @@ export function Toggle() {
                 size={26}
               />
             </MotiView>
+          </AnimatePresence>
             :
-            <Feather
-              name="tag"
-              color={theme.colors.white}
-              size={26}
-            />
+            <MotiView
+              from={{
+                scale: 0,
+                opacity: 0
+              }}
+              animate={{
+                scale: [
+                  { value: 0, type: 'timing' },
+                  { value: 1.1, type: 'spring' },
+                  { value: 1, type: 'timing' }
+                ],
+                opacity: 1
+              }}
+            >
+              <Feather
+                name="tag"
+                color={theme.colors.white}
+                size={26}
+              />
+            </MotiView>
       }
       </Pressable>
 
