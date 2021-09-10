@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Feather } from '@expo/vector-icons';
 import { View, Text, Pressable } from 'react-native';
 
@@ -8,6 +8,8 @@ import { styles } from './styles';
 import { theme } from '../../styles/theme';
 
 export function Toggle() {
+  const [toggleIsOpen, setToggleIsOpen] = useState(false);
+
   const toggleAnimationState = useAnimationState({
     closed: {
       height: 72
@@ -17,9 +19,15 @@ export function Toggle() {
     }
   })
 
-  const handleOpenToggle = () => toggleAnimationState.transitionTo('open')
-
-  const handleCloseToggle = () => toggleAnimationState.transitionTo('closed')
+  const handleOpenToggle = () => {
+    toggleAnimationState.transitionTo('open')
+    setToggleIsOpen(true)
+  }
+  
+  const handleCloseToggle = () => {
+    toggleAnimationState.transitionTo('closed')
+    setToggleIsOpen(false)
+  }
 
   return (
     <MotiView style={styles.container} state={toggleAnimationState}>
@@ -27,11 +35,34 @@ export function Toggle() {
         onPressIn={handleOpenToggle} 
         onPressOut={handleCloseToggle}
       >
-        <Feather
-          name="tag"
-          color={theme.colors.white}
-          size={26}
-        />
+        {
+          toggleIsOpen ?
+            <MotiView 
+              from={{
+                rotate: '0deg',
+                opacity: 0,
+              }}  
+              animate={{
+                rotate: '90deg',
+                opacity: 1,
+              }}
+              transition={{
+                type: 'timing',
+              }}
+            >
+              <Feather
+                name="x"
+                color={theme.colors.white}
+                size={26}
+              />
+            </MotiView>
+            :
+            <Feather
+              name="tag"
+              color={theme.colors.white}
+              size={26}
+            />
+      }
       </Pressable>
 
       <View style={styles.info}>
