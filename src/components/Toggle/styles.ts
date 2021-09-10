@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     left: 24,
 
     width: 70,
-    height: 170,
+    height: 72,
     overflow: 'hidden',
 
     backgroundColor: theme.colors.red,
@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
     paddingVertical: 24
   },
   info: {
-    marginTop: 17
+    marginTop: 22
   },
   label: {
     fontFamily: theme.fonts.primary400,

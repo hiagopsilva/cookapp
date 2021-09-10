@@ -2,14 +2,25 @@ import React from 'react';
 import { Feather } from '@expo/vector-icons';
 import { View, Text } from 'react-native';
 
+import { MotiView, useAnimationState } from "moti";
+
 import { styles } from './styles';
 import { theme } from '../../styles/theme';
 
 export function Toggle() {
+  const toggleAnimationState = useAnimationState({
+    closed: {
+      height: 72
+    },
+    open: {
+      height: 190,
+    }
+  })
+
   return (
-    <View style={styles.container}>
+    <MotiView style={styles.container} state={toggleAnimationState}>
       <Feather
-        name="x"
+        name="tag"
         color={theme.colors.white}
         size={26}
       />
@@ -33,6 +44,6 @@ export function Toggle() {
           190g
         </Text>
       </View>
-    </View >
+    </MotiView >
   );
 }
